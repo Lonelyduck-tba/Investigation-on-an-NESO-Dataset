@@ -1,4 +1,4 @@
-# Investigation-on-an-NESO-Dataset
+# Investigating an NESO Dataset
 
 In this project I aimed to investigate the historic electricity demand, wind and solar outturn data for 2023. This dataset was sourced from the Nation Energy System Operator which is a licensed electricity system operator balancing supply and demand; residing within Great Britain.
 
@@ -20,9 +20,11 @@ So my query would have to select the sum of the "EMBEDDED_SOLAR_GENERATION" and 
 
 I suspected that the solar generation would show as highly volatile if visualised and wanted to add a moving avereage to fully illustrate that point. In order for that to happen several things need to be put into place. First a window function that would calculate the average of 10 prior data points for every row. Window functions , as they are in the SELECT statement, use the non-aggregated dataset for its calculations and maintains the dataset's granularity, meaning that in order for the query to run I would have to add all the columns used in my window function in my GROUP BY statement because I would be trying to compare 17520 entries to 365 and thus create an error. This would create a moving average but would also push me back to square one with my 17520 entries. To remedy this I would create a CTE(Common Table Expression) to create an aggregated dataset to which the window function would be applied to. This resulted in both a moving average and 365 entries.
 
-**Exporting into PowerBI***
+**Exporting into PowerBI**
 
 To export the query into PowerBI I had to create a table from my query, simply done by adding CREAT TABLE AS {table_name} on the first command line. In PowerBI I would create a new report by pressing the "Get Data from other Sources" option and choosing Postgresql Database. I would then connect to the database by inputing the server, database, username(postgres) and password and then selecting which table I wanted to to load, which was {table_name}.
 
 **Creating the PowerBI Report***
+
+Creating the report had me use the line chart, column chart and card visuals. 
 
